@@ -1,26 +1,32 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Navbar } from "@/components/cafe/Navbar";
+import { Hero } from "@/components/cafe/Hero";
+import { FeaturedDrinks } from "@/components/cafe/FeaturedDrinks";
+import { About } from "@/components/cafe/About";
+import { Menu } from "@/components/cafe/Menu";
+import { Gallery } from "@/components/cafe/Gallery";
+import { Reviews } from "@/components/cafe/Reviews";
+import { Contact } from "@/components/cafe/Contact";
+import { Footer } from "@/components/cafe/Footer";
+import { FloatingButtons } from "@/components/cafe/FloatingButtons";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
-
 function Index() {
-  return <PlaceholderIndex />;
+  return (
+    <main className="relative min-h-screen bg-background">
+      <Navbar />
+      <Hero />
+      <FeaturedDrinks />
+      <About />
+      <Menu />
+      <Gallery />
+      <Reviews />
+      <Contact />
+      <Footer />
+      <FloatingButtons />
+    </main>
+  );
 }
