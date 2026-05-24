@@ -7,10 +7,19 @@ export function Menu() {
   const [q, setQ] = useState("");
 
   const items = useMemo(() => {
-    const base = MENU[active] as readonly (readonly [string, number])[];
-    if (!q.trim()) return base;
-    const needle = q.toLowerCase();
-    return base.filter(([name]) => name.toLowerCase().includes(needle));
+    if (q.trim()) {
+      const needle = q.toLowerCase();
+      const all: { name: string; price: number; cat: MenuCategory }[] = [];
+      (CATEGORIES as MenuCategory[]).forEach((cat) => {
+        (MENU[cat] as readonly (readonly [string, number])[]).forEach(([name, price]) => {
+          if (name.toLowerCase().includes(needle)) all.push({ name, price, cat });
+        });
+      });
+      return all;
+    }
+    return (MENU[active] as readonly (readonly [string, number])[]).map(
+      ([name, price]) => ({ name, price, cat: active })
+    );
   }, [active, q]);
 
   return (
@@ -53,7 +62,7 @@ export function Menu() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {items.map(([name, price], i) => (
+          {items.map(({ name, price, cat }, i) => (
             <div
               key={name}
               className="glass rounded-2xl p-6 flex items-center justify-between gap-6 hover:-translate-y-1 hover:bg-caramel/8 transition-all duration-500"
@@ -61,7 +70,7 @@ export function Menu() {
             >
               <div>
                 <h3 className="font-display text-xl leading-snug">{name}</h3>
-                <p className="text-[11px] tracking-[0.3em] uppercase text-foreground/45 mt-1">{active}</p>
+                <p className="text-[11px] tracking-[0.3em] uppercase text-foreground/45 mt-1">{cat}</p>
               </div>
               <div className="font-display text-2xl text-caramel whitespace-nowrap">₹{price}</div>
             </div>
