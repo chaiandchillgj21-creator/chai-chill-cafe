@@ -37,7 +37,7 @@ export function Hero() {
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center text-center px-6">
         <div className="reveal" style={{ animationDelay: "0.1s" }}>
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-xs tracking-[0.3em] uppercase text-cream/90">
-            <Coffee size={14} /> Vesu, Surat
+            <Coffee size={14} /> Navsari
           </span>
         </div>
         <h1
