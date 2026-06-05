@@ -5,11 +5,11 @@ export function Hero() {
   const particles = Array.from({ length: 14 });
   return (
     <section id="home" className="relative min-h-screen w-full overflow-hidden">
-      <div className="absolute inset-0">
+      <div className="hero-bg absolute inset-0 overflow-hidden">
         <img
           src={heroImg}
           alt="Steaming coffee cup in a warm cafe"
-          className="w-full h-full object-cover slow-zoom"
+          className="w-full h-full object-cover object-center slow-zoom"
           width={1920}
           height={1080}
         />
@@ -34,35 +34,36 @@ export function Hero() {
         ))}
       </div>
 
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center text-center px-6">
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center text-center px-4 sm:px-5 md:px-6 pt-10 sm:pt-12 md:pt-14 hero-content">
         <div className="reveal" style={{ animationDelay: "0.1s" }}>
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-xs tracking-[0.3em] uppercase text-cream/90">
             <Coffee size={14} /> Navsari
           </span>
         </div>
         <h1
-          className="reveal mt-8 font-display text-5xl md:text-7xl lg:text-8xl leading-[1.05] max-w-5xl"
+          className="reveal mt-6 font-display leading-[1.02] max-w-full text-center hero-heading"
           style={{ animationDelay: "0.25s" }}
         >
-          Savor the <span className="text-gradient italic">Perfect Brew</span>
+          Savor the{' '}
+          <span className="text-gradient italic hero-subline">Perfect Brew</span>
         </h1>
         <p
-          className="reveal mt-6 max-w-xl text-base md:text-lg text-foreground/75"
+          className="reveal mt-7 text-foreground/75 hero-copy"
           style={{ animationDelay: "0.45s" }}
         >
           Freshly brewed coffee, delicious café food, and cozy vibes —
-          handcrafted at Chai &amp; Chill in the heart of Surat.
+          handcrafted at Chai &amp; Chill in the heart of Navsari.
         </p>
-        <div className="reveal mt-10 flex flex-col sm:flex-row gap-4" style={{ animationDelay: "0.6s" }}>
+        <div className="reveal mt-12 flex flex-col sm:flex-row hero-cta-group justify-center" style={{ animationDelay: "0.6s" }}>
           <a
             href="#menu"
-            className="px-8 py-3.5 rounded-full bg-caramel-grad text-primary-foreground font-medium tracking-wide shadow-glow hover:scale-[1.03] transition-transform"
+            className="px-6 sm:px-8 py-3 rounded-full bg-caramel-grad text-primary-foreground font-medium tracking-wide shadow-glow hover:scale-[1.03] transition-transform w-full sm:w-auto text-sm sm:text-base"
           >
             Explore Menu
           </a>
           <a
             href="#contact"
-            className="px-8 py-3.5 rounded-full glass font-medium tracking-wide hover:bg-cream/10 transition"
+            className="px-6 sm:px-8 py-3 rounded-full glass font-medium tracking-wide hover:bg-cream/10 transition w-full sm:w-auto text-sm sm:text-base"
           >
             Contact Us
           </a>

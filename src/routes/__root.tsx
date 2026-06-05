@@ -4,11 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
-  HeadContent,
-  Scripts,
 } from "@tanstack/react-router";
-
-import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
   return (
@@ -72,20 +68,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Chai & Chill Cafe — Surat's Cozy Coffee Haven" },
-      { name: "description", content: "Handcrafted chai, premium coffee, and café comfort in Vesu, Surat. Explore our menu, gallery & visit Chai & Chill Cafe." },
+      { title: "Chai & Chill Cafe — Navsari's Cozy Coffee Haven" },
+      { name: "description", content: "Handcrafted chai, premium coffee, and café comfort in Navsari. Explore our menu, gallery & visit Chai & Chill Cafe." },
       { name: "author", content: "Chai & Chill Cafe" },
       { property: "og:title", content: "Chai & Chill Cafe" },
-      { property: "og:description", content: "Savor the perfect brew in Surat. Coffee, chai, food & cozy vibes." },
+      { property: "og:description", content: "Savor the perfect brew in Navsari. Coffee, chai, food & cozy vibes." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:site", content: "@ChaiChillCafe" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -94,25 +86,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
     ],
   }),
-  shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
 });
-
-function RootShell({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  );
-}
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();

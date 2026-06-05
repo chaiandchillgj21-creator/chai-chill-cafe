@@ -13,6 +13,8 @@ import {
   SheetContent,
   SheetDescription,
   SheetHeader,
+  SheetOverlay,
+  SheetPortal,
   SheetTitle,
 } from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -68,6 +70,17 @@ const SidebarProvider = React.forwardRef<
   ) => {
     const isMobile = useIsMobile();
     const [openMobile, setOpenMobile] = React.useState(false);
+
+    React.useEffect(() => {
+      if (openMobile) {
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "";
+      }
+      return () => {
+        document.body.style.overflow = "";
+      };
+    }, [openMobile]);
 
     // This is the internal state of the sidebar.
     // We use openProp and setOpenProp for control from outside the component.
@@ -189,23 +202,22 @@ const Sidebar = React.forwardRef<
     if (isMobile) {
       return (
         <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
-          <SheetContent
-            data-sidebar="sidebar"
-            data-mobile="true"
-            className="w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
-            style={
-              {
-                "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
-              } as React.CSSProperties
-            }
-            side={side}
-          >
-            <SheetHeader className="sr-only">
-              <SheetTitle>Sidebar</SheetTitle>
-              <SheetDescription>Displays the mobile sidebar.</SheetDescription>
-            </SheetHeader>
-            <div className="flex h-full w-full flex-col">{children}</div>
-          </SheetContent>
+          <SheetPortal>
+            <SheetOverlay />
+            <SheetContent
+              data-sidebar="sidebar"
+              data-mobile="true"
+              className="z-[110] inset-0 h-full w-full border-none bg-sidebar p-0 text-sidebar-foreground"
+            >
+              <SheetHeader className="sr-only">
+                <SheetTitle>Sidebar</SheetTitle>
+                <SheetDescription>Displays the mobile sidebar.</SheetDescription>
+              </SheetHeader>
+              <div className="flex h-full w-full flex-col pt-[env(safe-area-inset-top)]">
+                {children}
+              </div>
+            </SheetContent>
+          </SheetPortal>
         </Sheet>
       );
     }

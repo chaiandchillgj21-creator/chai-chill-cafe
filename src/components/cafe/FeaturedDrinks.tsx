@@ -12,19 +12,19 @@ const items = [
 
 export function FeaturedDrinks() {
   return (
-    <section id="drinks" className="relative py-28 px-6">
+    <section id="drinks" className="relative py-20 sm:py-28 px-3 sm:px-5">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-16">
+        <div className="text-center max-w-2xl mx-auto mb-14 px-2">
           <p className="text-xs tracking-[0.4em] uppercase text-caramel mb-4">Signature Pours</p>
-          <h2 className="font-display text-4xl md:text-6xl">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-6xl leading-tight">
             Brewed with <span className="text-gradient italic">love</span>
           </h2>
-          <p className="mt-5 text-foreground/70">
+          <p className="mt-5 text-sm sm:text-base text-foreground/70 leading-relaxed">
             Hand-selected favourites, crafted by our baristas every single day.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-7">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {items.map((it, i) => (
             <article
               key={it.name}

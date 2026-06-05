@@ -1,4 +1,4 @@
-import g1 from "@/assets/g1.jpg";
+import g1 from "@/assets/cafeimg.jpeg";
 import g2 from "@/assets/g2.jpg";
 import g3 from "@/assets/g3.jpg";
 import g4 from "@/assets/g4.jpg";
@@ -20,16 +20,16 @@ const imgs = [
 
 export function Gallery() {
   return (
-    <section id="gallery" className="relative py-28 px-6">
+    <section id="gallery" className="relative py-20 sm:py-28 px-3 sm:px-5">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-14">
+        <div className="text-center max-w-2xl mx-auto mb-14 px-2">
           <p className="text-xs tracking-[0.4em] uppercase text-caramel mb-4">Café Moments</p>
-          <h2 className="font-display text-4xl md:text-6xl">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-6xl leading-tight">
             A taste of <span className="text-gradient italic">our world</span>
           </h2>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[180px] md:auto-rows-[220px] gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[140px] sm:auto-rows-[160px] md:auto-rows-[220px] gap-4">
           {imgs.map((it, i) => (
             <div
               key={i}

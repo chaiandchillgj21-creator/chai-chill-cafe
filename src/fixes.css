@@ -1,0 +1,343 @@
+/*
+  Chai & Chill Cafe - UI & Responsiveness Fixes
+
+  This file contains targeted fixes for mobile responsiveness and UI bugs.
+  It is designed to be added to the existing project without altering the core design.
+  
+  Note: The CSS selectors used here (e.g., '.site-header', '.contact-info-item') are
+  based on common web conventions. You may need to adjust them to match the
+  exact class names in your HTML.
+*/
+
+/*
+ * 1. Hamburger Menu Fix
+ * Ensures the navigation bar and menu button are always on top and clickable,
+ * even after scrolling. A high z-index is critical for sticky headers.
+*/
+.site-header, /* Or your main <header> or <nav> element */
+.main-navigation {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 50; /* Matches header component class z-50 */
+}
+
+.hamburger-menu { /* The button itself */
+    z-index: 1001; /* Ensures the button is clickable within the header */
+    cursor: pointer;
+    pointer-events: auto !important; /* Overrides any other rules that might prevent clicks */
+}
+
+
+/*
+ * 2. Floating Buttons Fix
+ * Stabilizes the WhatsApp and Call buttons, keeping them in a fixed position
+ * at the bottom-right of the screen without jumping during scroll.
+*/
+.floating-buttons-container {
+    position: fixed !important;
+    bottom: max(20px, env(safe-area-inset-bottom, 20px)) !important;
+    right: max(20px, env(safe-area-inset-right, 20px)) !important;
+    z-index: 999 !important; /* High z-index, but below modals or open menus */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transform: translateZ(0); /* Promotes to a new layer to prevent scroll-related jitters */
+}
+
+/* Remove any individual positioning from the buttons themselves */
+.floating-buttons-container .whatsapp-button,
+.floating-buttons-container .call-button {
+    position: static;
+    transform: none;
+    margin: 0;
+}
+
+
+/*
+ * 3. Contact Section Content Alignment
+ * Uses Flexbox to properly align icons and text, improves spacing,
+ * and ensures long text wraps correctly within the card boundaries.
+*/
+.contact-section .contact-info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem; /* Consistent vertical spacing between items */
+    width: 100%;
+    align-items: center; /* Center-aligns all contact items */
+}
+
+.contact-info-item {
+    display: flex;
+    align-items: center; /* Vertically aligns icon and text */
+    gap: 1rem; /* Creates space between the icon and the text */
+    width: 100%;
+    max-width: 400px; /* Prevents items from being too wide on larger screens */
+    justify-content: flex-start; /* Aligns items to the start */
+}
+
+.contact-info-item .icon {
+    flex-shrink: 0; /* Prevents the icon from shrinking */
+    width: 30px; /* Gives icons a consistent width for better text alignment */
+    text-align: center;
+}
+
+.contact-info-item .text {
+    text-align: left;
+    /* Allows long text (like addresses) to wrap gracefully */
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+
+/*
+ * 4. Contact Buttons Alignment
+ * Makes all contact buttons uniform in size and spacing for a professional look.
+ * They will stack neatly on smaller screens.
+*/
+.contact-buttons-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows buttons to wrap to the next line if needed */
+    justify-content: center;
+    gap: 1rem; /* Consistent spacing for all buttons */
+    margin-top: 2.5rem;
+    width: 100%;
+}
+
+.contact-buttons-container .btn {
+    flex-grow: 1; /* Allows buttons to grow to fill available space */
+    flex-basis: 200px; /* Sets a minimum starting width */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0; /* Relies on 'gap' for spacing */
+    min-height: 50px; /* Ensures all buttons have the same height */
+}
+
+
+/*
+ * 5. General Mobile Responsiveness
+ * Fine-tunes spacing and layout for a range of mobile and tablet screen sizes.
+*/
+
+/* For very small mobile screens (320px - 375px) */
+@media (max-width: 375px) {
+    .section-padding {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+/* For all mobile devices up to tablets */
+@media (max-width: 767px) {
+    /* Stacks the contact buttons vertically for a better mobile experience */
+    .contact-buttons-container {
+        flex-direction: column;
+        align-items: stretch; /* Makes all buttons full-width */
+    }
+
+    .contact-info-item {
+        max-width: 100%;
+        justify-content: center; /* Center icon and text on mobile */
+    }
+}
+
+/* For tablets (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .section-padding {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+
+
+/*
+ * 6. Full-Screen Mobile Menu Fix
+ * This section completely overhauls the mobile menu to function as a
+ * full-screen overlay, fixing issues with stacking contexts, background
+ * scrolling, and incorrect layering.
+*/
+
+/* 1. Body Scroll Lock */
+/*
+ * When the mobile menu is open, prevent the background page from scrolling.
+ * The :has() selector targets the body only when the mobile menu sheet is open.
+*/
+body:has([data-sidebar="sidebar"][data-state="open"]) {
+    overflow: hidden !important;
+}
+
+/* 2. Menu Overlay */
+/*
+ * The Sheet component's overlay needs a high z-index to appear above all
+ * page content (like the sticky header) and dim the background.
+*/
+[data-vaul-overlay][data-state="open"], /* vaul/shadcn overlay */
+[data-radix-dialog-overlay][data-state="open"] /* Radix overlay fallback */ {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100 !important; /* Higher than header (50), lower than menu content (110) */
+    background-color: oklch(0.12 0.025 50 / 0.6); /* Dark overlay */
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* 3. Hide Floating Buttons */
+/* When the menu is open, hide the floating action buttons. */
+body:has([data-sidebar="sidebar"][data-state="open"]) .floating-buttons-container {
+    display: none;
+}
+
+/* 4. Hide floating buttons when custom mobile menu is open */
+body.menu-open .floating-buttons-container {
+    display: none !important;
+}
+
+/*
+ * 7. Divider / Glow Line Flickering Fix
+ * Stabilizes horizontal dividers, glow lines, and section separators to prevent
+ * flickering, blinking, or sub-pixel rendering issues during mobile scroll.
+*/
+hr,
+.divider,
+.glow-line,
+.section-divider,
+[role="separator"][data-orientation="horizontal"] {
+    /* Force hardware acceleration to prevent sub-pixel rendering and scroll flicker */
+    transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
+    will-change: auto !important;
+
+    /* Enforce a solid 1px line, overriding fractional or sub-pixel heights */
+    min-height: 1px !important;
+
+    /* Remove animations, transforms, opacity shifts, and parallax effects */
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+
+    /* Prevent backdrop-blur rendering glitches on thin elements */
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/*
+ * 8. Strict Horizontal Overflow Prevention
+ * Ensures absolutely no horizontal scrolling on any mobile device.
+*/
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+}
+
+/*
+ * 9. Responsive Typography & Content Wrapping
+ * Guarantees long words, addresses, or links never break the layout or overlap.
+*/
+h1, h2, h3, h4, h5, h6, p, a, span, li, address, blockquote {
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/*
+ * 10. Flexbox Shrink Fix & Container Bounds
+ * Prevents flex/grid children or cards from bursting out of their parents on tiny screens.
+ * By setting min-width: 0, elements are allowed to shrink below their content size.
+*/
+* {
+    min-width: 0;
+}
+
+/*
+ * 11. Safe Padding for Ultra-Small Devices (320px - 380px)
+*/
+@media (max-width: 380px) {
+    section {
+        padding-left: 1.25rem !important;
+        padding-right: 1.25rem !important;
+    }
+}
+
+/*
+ * 12. Fluid Typography & Hero Balance
+ * Uses clamp() for smooth scaling across 320px to 1920px.
+ * text-wrap: balance prevents awkward orphans in headings.
+*/
+.hero-title, .hero-section h1, .hero-content h1 {
+    font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem) !important;
+    line-height: 1.1 !important;
+    text-wrap: balance !important;
+    margin-bottom: clamp(1rem, 3vw, 2rem) !important;
+}
+
+.hero-subtitle, .hero-section p, .hero-content p {
+    font-size: clamp(1rem, 1.5vw + 0.5rem, 1.25rem) !important;
+    max-width: 65ch; /* Luxury readability length */
+    text-wrap: pretty !important;
+    margin-bottom: clamp(1.5rem, 4vw, 2.5rem) !important;
+}
+
+/* 
+ * 13. Hero Composition & Image Scaling
+ * Perfect balance between text and the cup image.
+*/
+.hero-image-container img, .hero-cup {
+    width: 100%;
+    max-width: clamp(280px, 40vw, 600px) !important;
+    height: auto;
+    object-fit: contain;
+    margin-inline: auto;
+    display: block;
+}
+
+@media (min-width: 1024px) {
+    .hero-section .container, .hero-content-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: clamp(2rem, 5vw, 6rem);
+        min-height: clamp(600px, 80vh, 900px); /* Premium luxury spacing */
+    }
+    .hero-content, .hero-image-container {
+        flex: 1 1 50%;
+    }
+    .hero-image-container {
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
+/*
+ * 14. Navbar & Logo Optimization for Ultra-Wide Screens
+ * Centers the navbar on 1440px+ and scales the logo.
+*/
+.site-logo img, .navbar-brand img {
+    width: auto;
+    height: clamp(35px, 5vw, 65px) !important; /* Adaptive logo size */
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.main-navigation .nav-inner, .site-header .container {
+    max-width: 1440px !important;
+    margin-inline: auto !important;
+    width: 100%;
+    padding-inline: clamp(1.25rem, 4vw, 3rem) !important;
+}
+
+/*
+ * 15. Vertical Rhythm & Global Section Spacing
+ * Ensures consistent padding across all sections for 320px -> 1920px.
+*/
+section {
+    padding-block: clamp(3rem, 8vw, 7rem) !important;
+}
+
+.section-padding, .container {
+    padding-inline: clamp(1.25rem, 5vw, 4rem) !important;
+    max-width: 1440px !important;
+    margin-inline: auto !important;
+}

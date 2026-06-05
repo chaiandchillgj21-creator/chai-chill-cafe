@@ -23,37 +23,39 @@ export function Menu() {
   }, [active, q]);
 
   return (
-    <section id="menu" className="relative py-28 px-6">
+    <section id="menu" className="relative py-20 sm:py-28 px-3 sm:px-5">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-12">
+        <div className="text-center max-w-2xl mx-auto mb-12 px-2">
           <p className="text-xs tracking-[0.4em] uppercase text-caramel mb-4">The Menu</p>
           <h2 className="font-display text-4xl md:text-6xl">
             Crafted with <span className="text-gradient italic">soul</span>
           </h2>
-          <p className="mt-5 text-foreground/70">
+          <p className="mt-5 text-sm sm:text-base text-foreground/70 leading-relaxed">
             From comforting chai to indulgent desserts — every item, lovingly prepared.
           </p>
         </div>
 
-        <div className="glass-strong rounded-3xl p-3 flex items-center gap-3 max-w-md mx-auto mb-10">
-          <Search size={18} className="ml-3 text-foreground/60" />
+        <div className="glass-strong rounded-[2rem] p-3 sm:p-4 flex items-center gap-3 max-w-xl w-full mx-auto mb-14 border border-white/12 bg-[#28140f]/85 shadow-[0_20px_55px_-30px_rgba(184,118,44,0.32)] transition duration-200 ease-out hover:shadow-[0_22px_70px_-30px_rgba(184,118,44,0.38)] focus-within:border-caramel/30 focus-within:shadow-[0_24px_70px_-28px_rgba(184,118,44,0.4)] focus-within:ring-1 focus-within:ring-caramel/20 min-w-0">
+          <span className="group flex h-14 w-14 shrink-0 items-center justify-center rounded-3xl border border-white/10 bg-gradient-to-br from-[#d89a58]/15 to-[#a75b28]/10 text-caramel shadow-soft transition duration-300 ease-out focus-within:scale-[1.02]">
+            <Search size={22} className="text-caramel" />
+          </span>
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search the menu…"
-            className="flex-1 bg-transparent outline-none py-2 pr-3 text-sm placeholder:text-foreground/45"
+            className="flex-1 min-w-0 bg-transparent outline-none py-4 text-sm sm:text-base placeholder:text-foreground/55 placeholder:tracking-[0.04em] text-foreground transition duration-200 ease-out focus:placeholder:text-foreground/40"
           />
         </div>
 
-        <div className="flex flex-wrap justify-center gap-2.5 mb-12">
+        <div className="w-full min-w-0 flex flex-nowrap items-center overflow-x-auto no-scrollbar touch-scroll-x justify-start gap-3 sm:justify-center sm:flex-wrap sm:overflow-visible sm:touch-auto mb-12 px-1 sm:px-0 pb-1">
           {CATEGORIES.map((c) => (
             <button
               key={c}
               onClick={() => setActive(c)}
-              className={`px-5 py-2.5 rounded-full text-sm tracking-wide transition-all ${
+              className={`snap-start min-w-[110px] px-4 sm:px-5 py-3 rounded-full text-sm sm:text-base text-center tracking-wide transition-all duration-200 ease-out ${
                 active === c
-                  ? "bg-caramel-grad text-primary-foreground shadow-glow"
-                  : "glass hover:bg-caramel/15"
+                  ? "bg-caramel-grad text-primary-foreground shadow-[0_18px_60px_-30px_rgba(184,118,44,0.35)] ring-1 ring-caramel/25"
+                  : "glass text-foreground/85 hover:bg-caramel/12 active:scale-[0.98]"
               }`}
             >
               {c}
@@ -61,18 +63,18 @@ export function Menu() {
           ))}
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {items.map(({ name, price, cat }, i) => (
             <div
               key={name}
-              className="glass rounded-2xl p-6 flex items-center justify-between gap-6 hover:-translate-y-1 hover:bg-caramel/8 transition-all duration-500"
+              className="glass rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:-translate-y-1 hover:bg-caramel/8 transition-all duration-500"
               style={{ animationDelay: `${i * 0.04}s` }}
             >
-              <div>
+              <div className="min-w-0">
                 <h3 className="font-display text-xl leading-snug">{name}</h3>
                 <p className="text-[11px] tracking-[0.3em] uppercase text-foreground/45 mt-1">{cat}</p>
               </div>
-              <div className="font-display text-2xl text-caramel whitespace-nowrap">₹{price}</div>
+              <div className="font-display text-2xl sm:text-3xl text-caramel whitespace-nowrap">₹{price}</div>
             </div>
           ))}
           {items.length === 0 && (
