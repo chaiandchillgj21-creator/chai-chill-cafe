@@ -24,7 +24,7 @@ export function Footer() {
             <li><a href="#menu" className="hover:text-caramel">Menu</a></li>
             <li><a href="#drinks" className="hover:text-caramel">Drinks</a></li>
             <li><a href="#gallery" className="hover:text-caramel">Gallery</a></li>
-            <li><a href="#contact" className="hover:text-caramel">Contact</a></li>
+            
           </ul>
         </div>
 
@@ -43,6 +43,12 @@ export function Footer() {
               <Clock size={14} className="mt-1 text-caramel" />
               <span>{CONTACT.hours}</span>
             </li>
+            <li>
+              <a href={CONTACT.maps} target="_blank" rel="noreferrer" className="flex gap-2 items-start hover:text-caramel transition">
+                <MapPin size={14} className="mt-1 text-caramel shrink-0" />
+                <span>Get Location</span>
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -56,6 +62,9 @@ export function Footer() {
             </a>
             <a href={`tel:${CONTACT.phone}`} className="w-10 h-10 grid place-items-center rounded-full glass hover:bg-caramel/20 transition" aria-label="Call">
               <Phone size={16} />
+            </a>
+            <a href={CONTACT.maps} target="_blank" rel="noreferrer" className="w-10 h-10 grid place-items-center rounded-full glass hover:bg-caramel/20 transition" aria-label="Get location">
+              <MapPin size={16} />
             </a>
           </div>
         </div>

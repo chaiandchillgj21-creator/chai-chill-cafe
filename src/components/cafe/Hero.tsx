@@ -61,12 +61,7 @@ export function Hero() {
           >
             Explore Menu
           </a>
-          <a
-            href="#contact"
-            className="px-6 sm:px-8 py-3 rounded-full glass font-medium tracking-wide hover:bg-cream/10 transition w-full sm:w-auto text-sm sm:text-base"
-          >
-            Contact Us
-          </a>
+          
         </div>
       </div>
 

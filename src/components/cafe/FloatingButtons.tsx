@@ -16,7 +16,7 @@ export function FloatingButtons() {
       <a
         href={`tel:${CONTACT.phone}`}
         aria-label="Call cafe"
-        className="w-14 h-14 rounded-full bg-caramel-grad grid place-items-center shadow-glow hover:scale-110 transition duration-300"
+        className="pulse-ring w-14 h-14 rounded-full bg-caramel-grad grid place-items-center shadow-glow hover:scale-110 transition duration-300"
       >
         <Phone className="text-primary-foreground" size={20} />
       </a>

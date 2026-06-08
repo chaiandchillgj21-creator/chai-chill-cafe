@@ -6,7 +6,6 @@ import { About } from "@/components/cafe/About";
 import { Menu } from "@/components/cafe/Menu";
 import { Gallery } from "@/components/cafe/Gallery";
 import { Reviews } from "@/components/cafe/Reviews";
-import { Contact } from "@/components/cafe/Contact";
 import { Footer } from "@/components/cafe/Footer";
 import { FloatingButtons } from "@/components/cafe/FloatingButtons";
 
@@ -24,7 +23,6 @@ function Index() {
       <Menu />
       <Gallery />
       <Reviews />
-      <Contact />
       <Footer />
       <FloatingButtons />
     </main>

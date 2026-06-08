@@ -9,7 +9,6 @@ const links = [
   { label: "Menu", href: "#menu" },
   { label: "Drinks", href: "#drinks" },
   { label: "Gallery", href: "#gallery" },
-  { label: "Contact", href: "#contact" },
 ];
 
 export function Navbar() {
