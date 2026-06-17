@@ -37,7 +37,7 @@ export function Hero() {
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center text-center px-4 sm:px-5 md:px-6 pt-10 sm:pt-12 md:pt-14 hero-content">
         <div className="reveal" style={{ animationDelay: "0.1s" }}>
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-xs tracking-[0.3em] uppercase text-cream/90">
-            <Coffee size={14} /> Navsari
+            <Coffee className="logo-icon" size={14} /> Navsari
           </span>
         </div>
         <h1
@@ -67,7 +67,7 @@ export function Hero() {
 
       <a
         href="#drinks"
-        className="absolute left-1/2 -translate-x-1/2 bottom-8 z-10 flex flex-col items-center gap-2 text-cream/70 hover:text-cream transition"
+        className="scroll-indicator absolute left-1/2 -translate-x-1/2 bottom-8 z-10 flex flex-col items-center gap-2 text-cream/70 hover:text-cream transition"
       >
         <span className="text-[10px] tracking-[0.4em] uppercase">Scroll</span>
         <ArrowDown className="bounce-soft" size={18} />
